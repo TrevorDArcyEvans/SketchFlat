@@ -160,6 +160,7 @@ static void pm(double mat[][MAX_UNKNOWNS_AT_ONCE], int m, int n)
         OutputDebugString(buf);
     }
 }
+
 static void pmJ(void)
 {
     pm(J.num, J.M, J.N);
@@ -172,6 +173,7 @@ static void pmJ(void)
     }
     OutputDebugString("\n");
 }
+
 static void pmAH(void)
 {
     char buf[1024];
@@ -233,6 +235,7 @@ static double SensitivityTo(hParam hp, int *jpos)
     }
     return VERY_NEGATIVE;
 }
+
 static void MostSensitiveCoordinateFirst(void)
 {
     int a;
@@ -488,6 +491,7 @@ void HighlightConstraint(char *str)
     Selected[0].constraint = hc;
     EmphasizeSelected = TRUE;
 }
+
 static void DescribeConstraint(hConstraint hc)
 {
     SketchConstraint *c = ConstraintById(hc);
@@ -523,6 +527,7 @@ static void DescribeConstraint(hConstraint hc)
     memcpy(desc, s, strlen(s));
     uiAddToConstraintsList(desc);
 }
+
 static void FindConstraintsToRemoveForConsistency(void)
 {
     uiClearConstraintsList();

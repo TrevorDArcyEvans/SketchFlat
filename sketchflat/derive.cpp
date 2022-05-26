@@ -516,6 +516,7 @@ static void CopyShownStateFromPrivate(hLayer layer, BOOL *v)
     }
     // otherwise *v is left untouched.
 }
+
 static void SaveShownStateForPoly(int i)
 {
     if(!IS_DERIVED_FROM_LAYER(DL->poly[i].id)) return;
@@ -540,6 +541,7 @@ static void SaveShownStateForPoly(int i)
         }
     }
 }
+
 static void SaveShownStateToPrivate(void)
 {
     int i;
@@ -580,6 +582,7 @@ static void DerivedUpdateListBold(void)
     SaveShownStateToPrivate();
     uiRepaint();
 }
+
 void DerivedItemsListToggleShown(int i)
 {
     if(i < 0 || i >= DL->polys) {
@@ -591,6 +594,7 @@ void DerivedItemsListToggleShown(int i)
 
     DerivedUpdateListBold();
 }
+
 void DerivedItemsListEdit(int i)
 {
     if(i < 0 || i >= DL->polys) {
@@ -620,6 +624,7 @@ void DerivedItemsListEdit(int i)
 
     GenerateDeriveds();
 }
+
 void ButtonShowAllDerivedItems(void)
 {
     int i;
@@ -628,6 +633,7 @@ void ButtonShowAllDerivedItems(void)
     }
     DerivedUpdateListBold();
 }
+
 void ButtonHideAllDerivedItems(void)
 {
     int i;
@@ -911,6 +917,7 @@ void MenuDerivedUnselect(int id)
             break;
     }
 }
+
 static void mark(double xf, double yf)
 {
     int x = toPixelsX(xf);
@@ -919,6 +926,7 @@ static void mark(double xf, double yf)
     int d = 4;
     PltRect(x - d, y - (d + 1), x + d + 1, y + d);
 }
+
 static void DrawPolygon(DPolygon *p)
 {
     int i, j;
@@ -933,6 +941,7 @@ static void DrawPolygon(DPolygon *p)
         }
     }
 }
+
 static void DrawPoint(hPoint pt)
 {
     if(!PointExistsInSketch(pt)) return;
@@ -945,6 +954,7 @@ static void DrawPoint(hPoint pt)
     int d = 3;
     PltRect(x - d, y - (d + 1), x + d + 1, y + d);
 }
+
 void DrawDerived(void)
 {
     int i;

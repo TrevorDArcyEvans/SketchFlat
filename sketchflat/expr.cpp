@@ -83,6 +83,7 @@ static void dbps(char *str, ...)
     _vsnprintf(EPrintBuf+strlen(EPrintBuf), 
         sizeof(EPrintBuf) - strlen(EPrintBuf), str, f);
 }
+
 static void EPrintWorker(Expr *e)
 {
     switch(e->op) {
@@ -135,6 +136,7 @@ static void EPrintWorker(Expr *e)
     }
     oops();
 }
+
 void EPrint(char *s, Expr *e)
 {
     // XXX; this is slow, so it should be disabled completely unless it's

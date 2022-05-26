@@ -27,8 +27,10 @@
 #include "sketchflat.h"
 
 static int SolutionStartTime;
+
 // In milliseconds; we should give up if we're taking too long.
 #define MAX_SOLUTION_TIME 3000
+
 // And the time before we'll show an hourglass
 #define MAX_SOLUTION_TIME_BEFORE_HOURGLASS 200
 static BOOL CursorIsHourglass;
@@ -41,6 +43,7 @@ static RememberedSubsystems RSallocB;
 // The list of remembered subsystems that we are building up during this
 // call to the solve routines (i.e., an output from the solver).
 RememberedSubsystems *RSt = &RSallocA;
+
 // The list of remembered subsystems that we built up during the most recent
 // previous successful call to the solver (i.e., an input to the solver).
 RememberedSubsystems *RSp = &RSallocB;
@@ -113,7 +116,6 @@ void SatisfyCoincidenceConstraints(hPoint pt)
     // where they were supposed to go.
     ForceReferences();
 }
-
 
 //-----------------------------------------------------------------------------
 // Given the sketched entities and constraints, write a system of equations
@@ -316,6 +318,7 @@ static int EqnsInSubsys(int subSys)
     
     return c;
 }
+
 static int ParamsMarked(void)
 {
     int c = 0;

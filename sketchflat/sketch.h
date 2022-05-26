@@ -99,22 +99,29 @@ typedef DWORD       hParam;
 
 // To get a point ID from an entity ID:
 #define POINT_FOR_ENTITY(hEnt, k)   ((hPoint)((k) | ((hEnt) << 16)))
+
 // To get a line ID from an entity ID:
 #define LINE_FOR_ENTITY(hEnt, k)    ((hLine)((k) | ((hEnt) << 16)))
+
 // To get a parameter ID from an entity ID:
 #define PARAM_FOR_ENTITY(hEnt, k)   ((hParam)((k) | ((hEnt) << 16)))
 
 // Given a point, what entity is associated with it?
 #define ENTITY_FROM_POINT(hPt)      ((hEntity)((hPt) >> 16))
+
 // Given a point, what was the k value?
 #define K_FROM_POINT(hPt)           ((int)((hPt) & 0xffff))
+
 // Given a line, what entity is associated with it?
 #define ENTITY_FROM_LINE(hLn)       ((hEntity)((hLn) >> 16))
+
 // Given a parameter, what entity is associated with it?
 #define ENTITY_FROM_PARAM(hp)       ((hEntity)(((hp) >> 16) & 1023))
+
 // Given a paramter that is either the X or Y coordinate for a point, what
 // is the ID for that point?
 #define POINT_FROM_PARAM(hp)        ((hPoint)((hp) & 0x0fffffff))
+
 // Given a parameter that is either the theta or A for a line, line ID?
 #define LINE_FROM_PARAM(hp)         ((hPoint)((hp) & 0x0fffffff))
 

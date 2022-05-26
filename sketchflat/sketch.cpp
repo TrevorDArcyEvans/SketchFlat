@@ -169,6 +169,7 @@ static void AddParam(hParam p)
 
     SK->params = i + 1;
 }
+
 static void AddPoint(hPoint pt)
 {
     int i;
@@ -185,6 +186,7 @@ static void AddPoint(hPoint pt)
     SK->point[i] = pt;
     SK->points = i + 1;
 }
+
 static void AddLine(hLine ln)
 {
     int i;

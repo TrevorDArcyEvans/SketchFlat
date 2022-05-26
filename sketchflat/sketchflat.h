@@ -45,7 +45,6 @@ typedef signed short SWORD;
 #include "expr.h"
 #include "derived.h"
 
-
 //--------------------------------------------
 // in sketchflat.cpp
 void Init(char *cmdLine);
@@ -107,6 +106,7 @@ void SwitchToSketchMode(void);
 #define SEL_ENTITY      2
 #define SEL_LINE        3
 #define SEL_CONSTRAINT  4
+
 typedef struct {
     int         which;
     hPoint      point;
@@ -114,8 +114,11 @@ typedef struct {
     hLine       line;
     hConstraint constraint;
 } SelState;
+
 extern SelState Hover;
+
 #define MAX_SELECTED_ITEMS  8
+
 extern SelState Selected[MAX_SELECTED_ITEMS];
 extern BOOL EmphasizeSelected;
 void ClearHoverAndSelected(void);
@@ -131,6 +134,7 @@ extern int SolvingState;
 #define GET_DISTANCE_TO_CONSTRAINT  0
 #define DRAW_CONSTRAINT             1
 #define GET_LABEL_LOCATION          2
+
 double ForDrawnConstraint(int op, SketchConstraint *c, double *x, double *y);
 BOOL ConstraintHasLabelAssociated(SketchConstraint *c);
 void ChangeConstraintValue(SketchConstraint *c, char *newVal);
@@ -138,6 +142,7 @@ void ChangeConstraintValue(SketchConstraint *c, char *newVal);
 //--------------------------------------------
 // in layer.cpp
 #define REFERENCE_LAYER 0x00ffffff
+
 void UpdateLayerList(void);
 hLayer GetCurrentLayer(void);
 hLayer LayerForLine(hLine ln);
@@ -155,10 +160,12 @@ void LayerDisplayChanged(void);
 //--------------------------------------------
 // in constraint.cpp
 typedef DWORD hEquation;
+
 #define EQUATION_FOR_CONSTRAINT(eq, k)      (((eq) << 4) | (k))
 #define CONSTRAINT_FOR_EQUATION(eq)         ((eq) >> 4)
 #define CONSTRAINT_FOR_ENTITY(he)           ((hConstraint)((he) | 0x800000))
 #define MAX_EQUATIONS (MAX_CONSTRAINTS_IN_SKETCH*2)
+
 typedef struct {
     int eqns;
     struct {
@@ -218,7 +225,7 @@ void TtfPlotString(DWORD ref, char *str, double spacing);
 //--------------------------------------------
 // in polygon.cpp
 void PolygonAssemble(DPolygon *p, SketchPwl *src, int n,
-                                    hLayer lr, BOOL *leftovers);
+			hLayer lr, BOOL *leftovers);
 BOOL PolygonUnion(DPolygon *dest, DPolygon *pa, DPolygon *pb);
 BOOL PolygonDifference(DPolygon *dest, DPolygon *a, DPolygon *b);
 BOOL PolygonSuperimpose(DPolygon *dest, DPolygon *a, DPolygon *b);
@@ -233,7 +240,7 @@ BOOL PolygonMirror(DPolygon *dest, DPolygon *src,
                             double x0, double y0, double x1, double y1);
 BOOL PolygonOffset(DPolygon *dest, DPolygon *src, double radius);
 BOOL PolygonRoundCorners(DPolygon *dest, DPolygon *src, double radius, 
-                                                        hPoint *pt, int pts);
+			hPoint *pt, int pts);
 BOOL PolygonPerforate(DPolygon *dest, DPolygon *src, double len, double duty);
 
 //--------------------------------------------
@@ -248,21 +255,23 @@ void ButtonShowAllDerivedItems(void);
 void ButtonHideAllDerivedItems(void);
 void MenuDerivedUnselect(int id);
 void MenuDerive(int id);
+
 // indirectly, through draw.cpp
 void DrawDerived(void);
 void DerivedLeftButtonDown(int x, int y);
-void DerivedMouseMoved(int x, int y,
-                            BOOL leftDown, BOOL rightDown, BOOL centerDown);
+void DerivedMouseMoved(int x, int y, BOOL leftDown, BOOL rightDown, BOOL centerDown);
 
 //--------------------------------------------
 // in newton.cpp
 #define MAX_NUMERICAL_UNKNOWNS 40
 #define MAX_UNKNOWNS_AT_ONCE   128
+
 BOOL SolveNewton(int subSys);
 
 //--------------------------------------------
 // in assume.cpp
 BOOL Assume(int *assumed);
+
 // Callbacks for the lists of inconsistent constraints and assumed parameters;
 // from the GUI code.
 void HighlightAssumption(char *str);
@@ -292,6 +301,7 @@ typedef struct {
     } set[MAX_REMEMBERED_SUBSYSTEMS];
     int     sets;
 } RememberedSubsystems;
+
 // These have to be extern because they are saved to the .skf file, since
 // they're so expensive to regenerate.
 extern RememberedSubsystems *RSt;
@@ -314,6 +324,7 @@ void MenuUndo(int id);
 // in util.cpp
 void dbp(char *str, ...);
 void dbp2(char *str, ...);
+
 // For a fatal error; print a message and die.
 #define oops() do { \
         uiError("at file " __FILE__ " line %d", __LINE__); \
@@ -321,6 +332,7 @@ void dbp2(char *str, ...);
         if(0) *((char *)0) = 1; \
         exit(-1); \
     } while(0)
+
 // For a non-fatal error; print a message the first few times it happens,
 // then shut up about it.
 #define oopsnf() do { \
@@ -331,16 +343,17 @@ void dbp2(char *str, ...);
             ErrorCount++; \
         } \
     } while(0)
+		
 #define DEFAULT_TOL (0.001)
+
 BOOL tol(double a, double b);
 int toint(double v);
 BOOL told(double a, double b);
 BOOL tola(double a, double b);
-BOOL SolveLinearSystem(double X[], double A[][MAX_UNKNOWNS_AT_ONCE], 
-                                                        double B[], int n);
+BOOL SolveLinearSystem(double X[], double A[][MAX_UNKNOWNS_AT_ONCE], double B[], int n);
 
 void LineOrLineSegment(hLine ln, hEntity e,
-                            double *x0, double *y0, double *dx, double *dy);
+		double *x0, double *y0, double *dx, double *dy);
 BOOL IntersectionOfLines(double x0A, double y0A, double dxA, double dyA,
                          double x0B, double y0B, double dxB, double dyB,
                          double *xi, double *yi);
@@ -361,8 +374,7 @@ void RepAsPointOnLineAndDirection(double theta, double a,
 void RepAsAngleAndDistance(double x0, double y0, double dx, double dy,
                                 double *theta, double *a);
 void LineToParametric(hLine ln, double *x0, double *y0, double *dx, double *dy);
-void LineToPointsOnEdgeOfViewport(hLine ln, double *x1, double *y1,
-                                            double *x2, double *y2);
+void LineToPointsOnEdgeOfViewport(hLine ln, double *x1, double *y1, double *x2, double *y2);
 
 typedef struct {
     hPoint      point[MAX_SELECTED_ITEMS];
@@ -460,6 +472,7 @@ void PltLineTo(int x, int y);
 void PltCircle(int x, int y, int r);
 void PltRect(int x0, int y0, int x1, int y1);
 void PltText(int x, int y, BOOL boldFont, char *s, ...);
+
 #define MAX_COLORS 25
 #define LAYER_COLOR(x)          (x)
 #define HOVER_COLOR             16
@@ -470,6 +483,7 @@ void PltText(int x, int y, BOOL boldFont, char *s, ...);
 #define CONSTRUCTION_COLOR      21
 #define UNSELECTED_LAYER_COLOR  22
 #define ASSUMPTIONS_COLOR       23
+
 void PltSetColor(int c);
 void PltSetDashed(BOOL dashed);
 
@@ -490,8 +504,6 @@ void txtuiGetDefaultFont(char *str);
 BOOL uiShowSimpleDialog(char *title, int boxes, char **labels,
     DWORD numMask, hDerived *destH, char **destS);
 
-
 #include "ui.h"
-
 
 #endif

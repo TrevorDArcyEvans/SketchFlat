@@ -677,8 +677,7 @@ static Expr *EDistance(hPoint ptA, hPoint ptB)
                     ESquare(EMinus(EParam(yA), EParam(yB)))));
 }
 
-static void EGetPointAndDirectionForLine(hLine ln, hEntity e,
-                                Expr **x0, Expr **y0, Expr **dx, Expr **dy)
+static void EGetPointAndDirectionForLine(hLine ln, hEntity e, Expr **x0, Expr **y0, Expr **dx, Expr **dy)
 {
     if(e && ln) oops();
 
@@ -709,8 +708,7 @@ static void EGetPointAndDirectionForLine(hLine ln, hEntity e,
     }
 }
 
-static void EGetDirectionOrTangent(hLine ln, hEntity he, hPoint p,
-                                                Expr **dx, Expr **dy)
+static void EGetDirectionOrTangent(hLine ln, hEntity he, hPoint p, Expr **dx, Expr **dy)
 {   
     if(ln || he) {
         if(p) oops();
@@ -753,8 +751,7 @@ static void EGetDirectionOrTangent(hLine ln, hEntity he, hPoint p,
     }
 }
 
-static Expr *EDistanceFromExprPointToLine(Expr *xp, Expr *yp,
-                                                        hLine ln, hEntity e)
+static Expr *EDistanceFromExprPointToLine(Expr *xp, Expr *yp, hLine ln, hEntity e)
 {
     if(e && ln) oops();
 
@@ -768,6 +765,7 @@ static Expr *EDistanceFromExprPointToLine(Expr *xp, Expr *yp,
                     ESqrt(EPlus(ESquare(dx), ESquare(dy))));
     return d;
 }
+
 static Expr *EDistanceFromPointToLine(hPoint pt, hLine ln, hEntity e)
 {
     Expr *xp = EParam(X_COORD_FOR_PT(pt));
