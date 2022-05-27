@@ -407,10 +407,10 @@ void MakeMainWindowControls(void)
     t.dwStateMask = 0;
     t.mask = TCIF_TEXT | TCIF_PARAM;
 
-    t.pszText = "Sketch"; t.lParam = 0;
+    t.pszText = const_cast<LPSTR>("Sketch"); t.lParam = 0;
     if(TabCtrl_InsertItem(MainTab, 0, &t) < 0)
         oops();
-    t.pszText = "Derive and Export"; t.lParam = 1;
+    t.pszText = const_cast<LPSTR>("Derive and Export"); t.lParam = 1;
     if(TabCtrl_InsertItem(MainTab, 1, &t) < 0)
         oops();
 
@@ -492,7 +492,7 @@ void MakeMainWindowControls(void)
     NiceFont(ConsistencyStatus);
 
     for(i = 0; i < 3; i++) {
-        char *s;
+        const char *s;
         switch(i) {
             case 0: s = "Selected Items:";              break;
             case 1: s = "Assumed Parameters:";          break;
@@ -537,7 +537,7 @@ void MakeMainWindowControls(void)
 //-----------------------------------------------------------------------------
 // To set the textbox where we display measurement-type information.
 //-----------------------------------------------------------------------------
-void uiSetMeasurementAreaText(char *str)
+void uiSetMeasurementAreaText(const char *str)
 {
     SendMessage(MeasurementArea, WM_SETTEXT, 0, (LPARAM)str);
 }
@@ -546,7 +546,7 @@ void uiSetMeasurementAreaText(char *str)
 // To set the static control that displays how well-constrained the sketch
 // is right now.
 //-----------------------------------------------------------------------------
-void uiSetConsistencyStatusText(char *str, int bk)
+void uiSetConsistencyStatusText(const char *str, int bk)
 {
     ConsistencyStatusColor = bk;
     SendMessage(ConsistencyStatus, WM_SETTEXT, 0, (LPARAM)str);
@@ -559,7 +559,7 @@ void uiClearAssumptionsList(void)
 {
     SendMessage(AssumedParameters, LB_RESETCONTENT, 0, 0);
 }
-void uiAddToAssumptionsList(char *str)
+void uiAddToAssumptionsList(const char *str)
 {
     SendMessage(AssumedParameters, LB_ADDSTRING, 0, (LPARAM)str);
 }
@@ -572,7 +572,7 @@ void uiClearConstraintsList(void)
 {
     SendMessage(InconsistentConstraints, LB_RESETCONTENT, 0, 0);
 }
-void uiAddToConstraintsList(char *str)
+void uiAddToConstraintsList(const char *str)
 {
     SendMessage(InconsistentConstraints, LB_ADDSTRING, 0, (LPARAM)str);
 }
@@ -594,7 +594,7 @@ int uiGetLayerListSelection(void)
 
     return -1;
 }
-void uiAddToLayerList(BOOL shown, char *str)
+void uiAddToLayerList(BOOL shown, const char *str)
 {
     int p = ListView_GetItemCount(LayerList);
 
@@ -604,7 +604,7 @@ void uiAddToLayerList(BOOL shown, char *str)
     lvi.stateMask = LVIS_STATEIMAGEMASK;
     lvi.iItem       = p;
     lvi.iSubItem    = 0;
-    lvi.pszText     = str;
+    lvi.pszText     = const_cast<LPSTR>(str);
     lvi.lParam      = 0;
     ListView_InsertItem(LayerList, &lvi);
 
@@ -625,8 +625,7 @@ void uiSelectInLayerList(int p)
 // top-level item to identify it, plus zero to three subitems to describe
 // it in the list.
 //-----------------------------------------------------------------------------
-void uiAddToDerivedItemsList(int i, char *str,
-                                        char *subA, char *subB, char *subC)
+void uiAddToDerivedItemsList(int i, const char *str, const char *subA, const char *subB, const char *subC)
 {
     if(DerivedItemCount >= MAX_DERIVED_ELEMENTS) oops();
 
@@ -644,7 +643,7 @@ void uiAddToDerivedItemsList(int i, char *str,
 
     TVITEMEX *tvix = &(tvis.itemex);
     tvix->mask = TVIF_TEXT | TVIF_PARAM | TVIF_STATE;
-    tvix->pszText = str;
+    tvix->pszText = const_cast<LPSTR>(str);
     tvix->cChildren = children;
     tvix->iIntegral = 1;
     tvix->state = 0;
@@ -657,7 +656,7 @@ void uiAddToDerivedItemsList(int i, char *str,
 
     int j;
     for(j = 0; j < 3; j++) {
-        char *s;
+        const char *s;
         if(j == 0) s = subA;
         else if(j == 1) s = subB;
         else if(j == 2) s = subC;
@@ -670,7 +669,7 @@ void uiAddToDerivedItemsList(int i, char *str,
 
         tvix = &(tvis.itemex);
         tvix->mask = TVIF_TEXT | TVIF_STATE | TVIF_STATE;
-        tvix->pszText = s;
+        tvix->pszText = const_cast<LPSTR>(s);
         tvix->cChildren = 0;
         tvix->iIntegral = 1;
         tvix->state = 0;
@@ -725,7 +724,7 @@ BOOL uiPointsShownInDeriveMode(void)
 //-----------------------------------------------------------------------------
 // For the text entry box that is shown on the drawing to enter dimensions.
 //-----------------------------------------------------------------------------
-void uiShowTextEntryBoxAt(char *initial, int x, int y)
+void uiShowTextEntryBoxAt(const char *initial, int x, int y)
 {
     int mx = UnmapX(x);
     int my = UnmapY(y);
@@ -742,10 +741,10 @@ void uiHideTextEntryBox(void)
 {
     ShowWindow(TextEntryBox, SW_HIDE);
 }
-void uiGetTextEntryBoxText(char *dest)
+void uiGetTextEntryBoxText(const char *dest)
 {
     SendMessage(TextEntryBox, WM_GETTEXT, 10, (LPARAM)dest);
-    dest[10] = '\0';
+    // TODO   dest[10] = '\0';
 }
 BOOL uiTextEntryBoxIsVisible(void)
 {
@@ -793,7 +792,7 @@ void uiSetStatusBarText(char *solving, BOOL red, char *x, char *y, char *msgIn)
 //-----------------------------------------------------------------------------
 // Set our main window's title.
 //-----------------------------------------------------------------------------
-void uiSetMainWindowTitle(char *str)
+void uiSetMainWindowTitle(const char *str)
 {
     SendMessage(MainWindow, WM_SETTEXT, 0, (LPARAM)str);
 }
@@ -857,7 +856,7 @@ void PltCircle(int x, int y, int r)
     SelectObject(BackDc, GetStockObject(HOLLOW_BRUSH));
     Ellipse(BackDc, x-r+1, y-r, x+r, y+r-1);
 }
-void PltText(int x, int y, BOOL boldFont, char *s, ...)
+void PltText(int x, int y, BOOL boldFont, const char *s, ...)
 {
     x = UnmapX(x);
     y = UnmapY(y);

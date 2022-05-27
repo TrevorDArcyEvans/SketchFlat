@@ -113,7 +113,7 @@ static void DescribeConstraint(char *desc, SketchConstraint *c)
 
         case CONSTRAINT_SCALE_MM:
         case CONSTRAINT_SCALE_INCH: {
-            char *unit = (c->type == CONSTRAINT_SCALE_MM) ? " mm" : "\"";
+            const char *unit = (c->type == CONSTRAINT_SCALE_MM) ? " mm" : "\"";
             sprintf(desc, "scale imported file\r\n"
                           "  by factor\r\n"
                           "    %.4g%s : 1 unit\r\n"
@@ -133,7 +133,7 @@ static void DescribeConstraint(char *desc, SketchConstraint *c)
 }
 
 static void DescribeTwoPoints(char *desc, 
-                        double x0, double y0, double x1, double y1, char *w)
+                        double x0, double y0, double x1, double y1, const char *w)
 {
     double dx = x1 - x0;
     double dy = y1 - y0;
@@ -215,9 +215,9 @@ static void DescribeEntity(char *desc, SketchEntity *e)
             char buf[MAX_STRING];
             strcpy(buf, e->file);
             char *path = buf;
-            char *file = strrchr(buf, '\\');
+            const char *file = strrchr(buf, '\\');
             if(file) {
-                *file = '\0';
+                file = "\0";
                 file++;
             } else {
                 file = "";

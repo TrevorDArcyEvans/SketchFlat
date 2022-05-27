@@ -133,7 +133,7 @@ static BOOL EditDerivedItem(DerivedElement *de)
     switch(de->type) {
         case DERIVED_UNION: {
             hDerived polys[2] = { de->derivedA, de->derivedB };
-            char *labels[] = { "Polygon A:", "Polygon B:" };
+            const char *labels[] = { "Polygon A:", "Polygon B:" };
             if(uiShowSimpleDialog("Union: Polygon A + Polygon B", 2,
                 labels, 0, polys, NULL))
             {
@@ -147,7 +147,7 @@ static BOOL EditDerivedItem(DerivedElement *de)
 
         case DERIVED_DIFFERENCE: {
             hDerived polys[2] = { de->derivedA, de->derivedB };
-            char *labels[] = { "Polygon A:", "- Polygon B:" };
+            const char *labels[] = { "Polygon A:", "- Polygon B:" };
             if(uiShowSimpleDialog("Difference: Polygon A - Polygon B", 2,
                 labels, 0, polys, NULL))
             {
@@ -161,7 +161,7 @@ static BOOL EditDerivedItem(DerivedElement *de)
 
         case DERIVED_SUPERIMPOSE: {
             hDerived polys[2] = { de->derivedA, de->derivedB };
-            char *labels[] = { "Polygon A:", "Polygon B:" };
+            const char *labels[] = { "Polygon A:", "Polygon B:" };
             if(uiShowSimpleDialog("Superimpose: Polygon A and Polygon B", 2,
                 labels, 0, polys, NULL))
             {
@@ -178,8 +178,8 @@ static BOOL EditDerivedItem(DerivedElement *de)
             char strRadius[MAX_STRING];
             strcpy(strRadius, ToDisplay(de->radius));
 
-            char *strs[2] = { NULL, strRadius };
-            char *labels[] = { "Polygon:", "Offset:" };
+            const char *strs[2] = { NULL, strRadius };
+            const char *labels[] = { "Polygon:", "Offset:" };
             if(uiShowSimpleDialog("Offset from Polygon Edge", 2,
                 labels, (1 << 1), polys, strs))
             {
@@ -204,8 +204,8 @@ static BOOL EditDerivedItem(DerivedElement *de)
             char strN[MAX_STRING];
             sprintf(strN, "%d", de->n);
 
-            char *strs[6] = { NULL, strIdx, strIdy, strSdx, strSdy, strN };
-            char *labels[] = {
+            const char *strs[6] = { NULL, strIdx, strIdy, strSdx, strSdy, strN };
+            const char *labels[] = {
                 "Polygon:", "Initial dx:", "Initial dy:", "Step dx:",
                 "Step dy:", "Copies:"
             };
@@ -239,9 +239,9 @@ static BOOL EditDerivedItem(DerivedElement *de)
             char strN[MAX_STRING];
             sprintf(strN, "%d", de->n);
 
-            char *strs[6] = { NULL, strAboutX, strAboutY,
+            const char *strs[6] = { NULL, strAboutX, strAboutY,
                                     strInitialAngle, strStepAngle, strN };
-            char *labels[] = {
+            const char *labels[] = {
                 "Polygon:", "About x:", "About y:",
                 "Initial dtheta:", "Step dtheta:", "Copies:"
             };
@@ -265,8 +265,8 @@ static BOOL EditDerivedItem(DerivedElement *de)
             char strScale[MAX_STRING];
             sprintf(strScale, "%.3f", de->v0);
 
-            char *strs[2] = { NULL, strScale };
-            char *labels[] = { "Polygon:", "Scale:", };
+            const char *strs[2] = { NULL, strScale };
+            const char *labels[] = { "Polygon:", "Scale:", };
             if(uiShowSimpleDialog("Scale", 2, labels, 0x2, polys, strs))
             {
                 de->derivedA = polys[0];
@@ -287,8 +287,8 @@ static BOOL EditDerivedItem(DerivedElement *de)
             strcpy(strX1, ToDisplay(de->v2));
             strcpy(strY1, ToDisplay(de->v3));
 
-            char *strs[5] = { NULL, strX0, strY0, strX1, strY1 };
-            char *labels[] = { "Polygon:", "Point A x:", "Point A y:",
+            const char *strs[5] = { NULL, strX0, strY0, strX1, strY1 };
+            const char *labels[] = { "Polygon:", "Point A x:", "Point A y:",
                                            "Point B x:", "Point B y:" };
             if(uiShowSimpleDialog("Mirror About Line Through Points", 5,
                 labels, 0x1e, polys, strs))
@@ -312,8 +312,8 @@ static BOOL EditDerivedItem(DerivedElement *de)
             char strDutyCycle[MAX_STRING];
             sprintf(strDutyCycle, "%.2f", de->v1);
 
-            char *strs[3] = { NULL, strDashLength, strDutyCycle };
-            char *labels[] = { "Polygon:", "Dash Length:", "Duty Cycle:" };
+            const char *strs[3] = { NULL, strDashLength, strDutyCycle };
+            const char *labels[] = { "Polygon:", "Dash Length:", "Duty Cycle:" };
             if(uiShowSimpleDialog("Perforate Lines", 3,
                 labels, 0x6, polys, strs))
             {
@@ -346,8 +346,8 @@ static BOOL EditDerivedItem(DerivedElement *de)
                 return FALSE;
             }
 
-            char *strs[2] = { NULL, strRadius };
-            char *labels[] = { "Polygon:", "Radius:", };
+            const char *strs[2] = { NULL, strRadius };
+            const char *labels[] = { "Polygon:", "Radius:", };
             if(uiShowSimpleDialog("Round Sharp Corners",
                                             2, labels, 0x2, polys, strs))
             {
@@ -376,7 +376,7 @@ static BOOL EditDerivedItem(DerivedElement *de)
 
 void MenuDerive(int id)
 {
-    char *str = NULL;
+    const char *str = NULL;
     DerivedElement de;
     memset(&de, 0, sizeof(de));
 

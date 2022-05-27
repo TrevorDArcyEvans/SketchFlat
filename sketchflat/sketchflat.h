@@ -65,7 +65,7 @@ int toPixelsX(double x);
 int toPixelsY(double y);
 int toPixelsNotAffine(double r);
 char *ToDisplay(double v);
-double FromDisplay(char *v);
+double FromDisplay(const char *v);
 
 // These following functions are called by the GUI code.
 void MenuZoom(int id);
@@ -322,8 +322,8 @@ void MenuUndo(int id);
 
 //--------------------------------------------
 // in util.cpp
-void dbp(char *str, ...);
-void dbp2(char *str, ...);
+void dbp(const char *str, ...);
+void dbp2(const char *str, ...);
 
 // For a fatal error; print a message and die.
 #define oops() do { \
@@ -400,8 +400,8 @@ void MenuExport(int id);
 
 //--------------------------------------------
 // in win32util.cpp
-BOOL uiGetSaveFile(char *file, char *defExtension, char *selPattern);
-BOOL uiGetOpenFile(char *file, char *defExtension, char *selPattern);
+BOOL uiGetSaveFile(const char *file, const char *defExtension, const char *selPattern);
+BOOL uiGetOpenFile(const char *file, const char *defExtension, const char *selPattern);
 int uiSaveFileYesNoCancel(void);
 
 void MenuSettings(int id);
@@ -416,7 +416,7 @@ void uiSetCursorToHourglass(void);
 void uiRestoreCursor(void);
 BOOL uiShiftKeyDown();
 
-void uiError(char *str, ...);
+void uiError(const char *str, ...);
 
 void Free(void *p);
 void *Alloc(int bytes);
@@ -433,35 +433,34 @@ void uiSetStatusBarText(char *solving, BOOL red, char *x, char *y, char *msg);
 BOOL uiInSketchMode(void);
 void uiForceSketchMode(void);
 
-void uiSetMeasurementAreaText(char *str);
+void uiSetMeasurementAreaText(const char *str);
 #define BK_GREY     0
 #define BK_YELLOW   1
 #define BK_GREEN    2
 #define BK_VIOLET   3
-void uiSetConsistencyStatusText(char *str, int bk);
-void uiSetMainWindowTitle(char *str);
+void uiSetConsistencyStatusText(const char *str, int bk);
+void uiSetMainWindowTitle(const char *str);
 
 void uiClearAssumptionsList(void);
-void uiAddToAssumptionsList(char *str);
+void uiAddToAssumptionsList(const char *str);
 
 void uiClearConstraintsList(void);
-void uiAddToConstraintsList(char *str);
+void uiAddToConstraintsList(const char *str);
 
 int uiGetLayerListSelection(void);
 void uiClearLayerList(void);
-void uiAddToLayerList(BOOL shown, char *str);
+void uiAddToLayerList(BOOL shown, const char *str);
 void uiSelectInLayerList(int p);
 
-void uiAddToDerivedItemsList(int i, char *str,
-                                        char *subA, char *subB, char *subC);
+void uiAddToDerivedItemsList(int i, const char *str, const char *subA, const char *subB, const char *subC);
 void uiClearDerivedItemsList(void);
 void uiBoldDerivedItem(int i, BOOL bold);
 int uiGetSelectedDerivedItem(void);
 BOOL uiPointsShownInDeriveMode(void);
 
-void uiShowTextEntryBoxAt(char *initial, int x, int y);
+void uiShowTextEntryBoxAt(const char *initial, int x, int y);
 void uiHideTextEntryBox(void);
-void uiGetTextEntryBoxText(char *dest);
+void uiGetTextEntryBoxText(const char *dest);
 BOOL uiTextEntryBoxIsVisible(void);
 
 void uiRepaint(void);
@@ -471,7 +470,7 @@ void PltMoveTo(int x, int y);
 void PltLineTo(int x, int y);
 void PltCircle(int x, int y, int r);
 void PltRect(int x0, int y0, int x1, int y1);
-void PltText(int x, int y, BOOL boldFont, char *s, ...);
+void PltText(int x, int y, BOOL boldFont, const char *s, ...);
 
 #define MAX_COLORS 25
 #define LAYER_COLOR(x)          (x)
@@ -501,8 +500,8 @@ void txtuiGetDefaultFont(char *str);
 
 //--------------------------------------------
 // in win32simple.cpp
-BOOL uiShowSimpleDialog(char *title, int boxes, char **labels,
-    DWORD numMask, hDerived *destH, char **destS);
+BOOL uiShowSimpleDialog(const char *title, int boxes, const char **labels,
+    DWORD numMask, hDerived *destH, const char **destS);
 
 #include "ui.h"
 

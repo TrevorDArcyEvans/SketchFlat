@@ -25,7 +25,7 @@
 #include "sketchflat.h"
 
 extern void NiceFont(HWND x);
-extern HWND CreateWindowClient(DWORD exStyle, char *className, char *windowName,
+extern HWND CreateWindowClient(DWORD exStyle, const char *className, const char *windowName,
     DWORD style, int x, int y, int width, int height, HWND parent,
     HMENU menu, HINSTANCE instance, void *param);
 extern HINSTANCE Instance;

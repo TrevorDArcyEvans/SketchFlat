@@ -102,7 +102,7 @@
 typedef void MenuHandler(int id);
 static struct {
     int         level;          // 0 == on menu bar, 1 == one level down, ...
-    char       *label;          // or NULL for a separator
+    const char  *label;          // or NULL for a separator
     int         accelerator;    // keyboard accelerator to do same
     int         id;             // unique ID
     MenuHandler *fn;

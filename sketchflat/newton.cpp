@@ -35,7 +35,7 @@ static struct {
     Expr       *sym[MAX_UNKNOWNS_AT_ONCE][MAX_UNKNOWNS_AT_ONCE];
 } Jacobian;
 
-static hParam Unknown[MAX_UNKNOWNS_AT_ONCE];
+static hParam Unknowns[MAX_UNKNOWNS_AT_ONCE];
 static double InitialGuess[MAX_UNKNOWNS_AT_ONCE];
 
 static double X[MAX_UNKNOWNS_AT_ONCE];
@@ -85,7 +85,7 @@ BOOL SolveNewton(int subSys)
         if(SK->param[i].mark != 0) {
             if(np >= MAX_NUMERICAL_UNKNOWNS) oops();
 
-            Unknown[np] = SK->param[i].id;
+            Unknowns[np] = SK->param[i].id;
             InitialGuess[np] = SK->param[i].v;
 
             np++;
@@ -101,11 +101,11 @@ BOOL SolveNewton(int subSys)
     for(i = 0; i < N; i++) {
         for(j = 0; j < N; j++) {
             Expr *p;
-            if(EIndependentOf(Function.sym[i], Unknown[j])) {
+            if(EIndependentOf(Function.sym[i], Unknowns[j])) {
                 // A bit of optimisation.
                 p = EConstant(0);
             } else {
-                p = EPartial(Function.sym[i], Unknown[j]);
+                p = EPartial(Function.sym[i], Unknowns[j]);
                 p = EEvalKnown(p);
             }
             Jacobian.sym[i][j] = p;
@@ -142,7 +142,7 @@ BOOL SolveNewton(int subSys)
             // The Newton step looks like
             //      J(x_n) (x_{n+1} - x_n) = 0 - F(x_n)
             for(i = 0; i < N; i++) {
-                hParam p = Unknown[i];
+                hParam p = Unknowns[i];
                 double v = EvalParam(p);
                 v -= 0.98*X[i];
                 ForceParam(p, v);

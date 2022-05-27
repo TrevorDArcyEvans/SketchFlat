@@ -113,7 +113,7 @@ void Exit(void)
 //-----------------------------------------------------------------------------
 // printf-like debug function, to the Windows debug log.
 //-----------------------------------------------------------------------------
-void dbp(char *str, ...)
+void dbp(const char *str, ...)
 {
     va_list f;
     char buf[1024*40];
@@ -124,7 +124,7 @@ void dbp(char *str, ...)
     OutputDebugString(buf);
     OutputDebugString("\n");
 }
-void dbp2(char *str, ...)
+void dbp2(const char *str, ...)
 {
     return;
 
@@ -149,7 +149,7 @@ BOOL uiShiftKeyDown(void)
 //-----------------------------------------------------------------------------
 // Common dialog routines, to open or save a file.
 //-----------------------------------------------------------------------------
-BOOL uiGetOpenFile(char *file, char *defExtension, char *selPattern)
+BOOL uiGetOpenFile(const char *file, const char *defExtension, const char *selPattern)
 {
     OPENFILENAME ofn;
 
@@ -161,7 +161,7 @@ BOOL uiGetOpenFile(char *file, char *defExtension, char *selPattern)
     ofn.hwndOwner = MainWindow;
     ofn.lpstrFilter = selPattern;
     ofn.lpstrDefExt = defExtension;
-    ofn.lpstrFile = file;
+    ofn.lpstrFile = const_cast<LPSTR>(file);
     ofn.nMaxFile = MAX_PATH;
     ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_HIDEREADONLY;
 
@@ -171,7 +171,7 @@ BOOL uiGetOpenFile(char *file, char *defExtension, char *selPattern)
     SetForegroundWindow(MainWindow);
     return r;
 }
-BOOL uiGetSaveFile(char *file, char *defExtension, char *selPattern)
+BOOL uiGetSaveFile(const char *file, const char *defExtension, const char *selPattern)
 {
     OPENFILENAME ofn;
 
@@ -181,7 +181,7 @@ BOOL uiGetSaveFile(char *file, char *defExtension, char *selPattern)
     ofn.hwndOwner = MainWindow;
     ofn.lpstrFilter = selPattern;
     ofn.lpstrDefExt = defExtension;
-    ofn.lpstrFile = file;
+    ofn.lpstrFile = const_cast<LPSTR>(file);
     ofn.nMaxFile = MAX_PATH;
     ofn.Flags = OFN_PATHMUSTEXIST | OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT;
 
@@ -202,7 +202,7 @@ int uiSaveFileYesNoCancel(void)
 //-----------------------------------------------------------------------------
 // For error messages to the user; printf-like, to a message box.
 //-----------------------------------------------------------------------------
-void uiError(char *str, ...)
+void uiError(const char *str, ...)
 {
     va_list f;
     char buf[1024];
@@ -216,7 +216,7 @@ void uiError(char *str, ...)
 //-----------------------------------------------------------------------------
 // Create a window with a given client area.
 //-----------------------------------------------------------------------------
-HWND CreateWindowClient(DWORD exStyle, char *className, char *windowName,
+HWND CreateWindowClient(DWORD exStyle, const char *className, const char *windowName, 
     DWORD style, int x, int y, int width, int height, HWND parent,
     HMENU menu, HINSTANCE instance, void *param)
 {

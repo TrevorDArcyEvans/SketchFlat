@@ -91,7 +91,7 @@ char *ToDisplay(double v)
     }
     return s;
 }
-double FromDisplay(char *v)
+double FromDisplay(const char *v)
 {
     if(uiUseInches()) {
         return atof(v)*(25.4*1000);

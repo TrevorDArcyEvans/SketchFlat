@@ -1057,7 +1057,7 @@ static void Make_Scale(SketchConstraint *c)
         oopsnf();
         return;
     }
-    char *sought = "so dy = ";
+    const char* sought = "so dy = ";
     char *s = strstr(e->text, sought);
     if(!s) return;
     s += strlen(sought);

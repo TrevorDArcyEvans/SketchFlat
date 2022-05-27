@@ -69,7 +69,7 @@ void EMark(Expr *e, int delta);
 BOOL EExprMarksTwoParamsEqual(Expr *e, hParam *pA, hParam *pB);
 void EReplaceParameter(Expr *e, hParam replacement, hParam toReplace);
 
-void EPrint(char *s, Expr *e);
+void EPrint(const char *s, Expr *e);
 
 #endif
 

@@ -26,7 +26,7 @@
 #include "sketchflat.h"
 
 typedef struct {
-    char    *str;
+    const char    *str;
     int      type;
 } TypeMap;
 
@@ -78,7 +78,7 @@ TypeMap DerivedTypes[] = {
     { "PERFORATE",              DERIVED_PERFORATE },
 };
 
-static char *LookUpByType(int type, TypeMap *map, int n)
+static const char *LookUpByType(int type, TypeMap *map, int n)
 {
     int i;
     for(i = 0; i < n; i++) {

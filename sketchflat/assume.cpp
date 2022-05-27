@@ -499,7 +499,7 @@ static void DescribeConstraint(hConstraint hc)
     char desc[MAX_STRING];
     sprintf(desc, "         : c%08x", hc);
 
-    char *s;
+    const char* s;
     switch(c->type) {
         case CONSTRAINT_PT_PT_DISTANCE:             s = "distance"; break;
         case CONSTRAINT_POINTS_COINCIDENT:          s = "coincide"; break;

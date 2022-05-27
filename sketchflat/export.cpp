@@ -174,8 +174,8 @@ static int ExportAsGCode(char *file)
     char feed[MAX_STRING] = "10";
     char plunge[MAX_STRING] = "10";
 
-    char *strs[] = { depthStr, passesStr, feed, plunge };
-    char *labels[] = { "Total depth:", "Passes:", "Feed:", "Plunge feed:" };
+    const char *strs[] = { depthStr, passesStr, feed, plunge };
+    const char *labels[] = { "Total depth:", "Passes:", "Feed:", "Plunge feed:" };
     if(!uiShowSimpleDialog("Export as G Code", 4, labels, 0xf, NULL, strs)) {
         fclose(f);
         return RESULT_CANCELLED;
@@ -223,8 +223,8 @@ static int ExportAsGCode(char *file)
 
 void MenuExport(int id)
 {
-    char *filter;
-    char *defExt;
+    const char *filter;
+    const char *defExt;
 #define FILTER_ENDING "\0All Files\0*\0\0"
     switch(id) {
         case MNU_EXPORT_DXF:

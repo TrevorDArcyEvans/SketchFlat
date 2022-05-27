@@ -135,7 +135,7 @@ void StopSolving(void)
 
 void SketchGetStatusBarDescription(char *str, char *solving, BOOL *red)
 {
-    char *s;
+    const char *s;
     switch(CurrentOperation) {
         case MNU_DRAW_DATUM_POINT:
             s = "Click to define datum point location.";

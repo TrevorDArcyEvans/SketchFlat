@@ -75,7 +75,7 @@ Expr *EOfOne(int op, Expr *e0)
 }
 
 static char EPrintBuf[1024*40];
-static void dbps(char *str, ...)
+static void dbps(const char *str, ...)
 {
     va_list f;
 
@@ -137,7 +137,7 @@ static void EPrintWorker(Expr *e)
     oops();
 }
 
-void EPrint(char *s, Expr *e)
+void EPrint(const char *s, Expr *e)
 {
     // XXX; this is slow, so it should be disabled completely unless it's
     // desired.

@@ -28,7 +28,7 @@
 #include "sketchflat.h"
 
 void NiceFont(HWND x);
-HWND CreateWindowClient(DWORD exStyle, char *className, char *windowName,
+HWND CreateWindowClient(DWORD exStyle, const char *className, const char *windowName,
     DWORD style, int x, int y, int width, int height, HWND parent,
     HMENU menu, HINSTANCE instance, void *param);
 extern HINSTANCE Instance;
@@ -73,7 +73,7 @@ static LRESULT CALLBACK MyNumOnlyProc(HWND hwnd, UINT msg, WPARAM wParam,
     oops();
 }
 
-static void MakeControls(int boxes, char **labels, DWORD numMask)
+static void MakeControls(int boxes, const char **labels, DWORD numMask)
 {
     int i, j;
     for(i = 0; i < boxes; i++) {
@@ -173,8 +173,7 @@ static void MakeSimpleWindowClass(void)
     RegisterClassEx(&wc);
 }
 
-BOOL uiShowSimpleDialog(char *title, int boxes, char **labels,
-    DWORD numMask, hDerived *destH, char **destS)
+BOOL uiShowSimpleDialog(const char *title, int boxes, const char **labels, DWORD numMask, hDerived *destH, const char **destS)
 {
     BOOL didCancel;
 
