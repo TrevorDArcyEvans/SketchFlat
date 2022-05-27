@@ -159,14 +159,17 @@ typedef struct {
     // Text ops need the string. That's a special case, since it's specified
     // directly, and the solver isn't allowed to modify it.
     char            text[MAX_STRING];
+
     // And the font file that we'll be using.
     char            file[MAX_STRING];
+
     // And the factor by which we will artificially increase or decrease the
     // horizontal spacing, since that seems useful.
     double          spacing;
 
     // The layer that we're on.
     hLayer          layer;
+
     // Whether we're a normal line (that generates CAM output) or a
     // construction line (that is there only for convenience in the
     // dimensioning).
@@ -182,6 +185,7 @@ typedef struct {
     // back-substitution.)
     BOOL            known;
     int             mark;
+
     // These are used by the solver as it tries to forward-substitute the
     // easy equations.
     hParam          substd;
